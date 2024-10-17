@@ -3,6 +3,7 @@ from html.parser import HTMLParser
 from typing import Any, Dict, Iterator, List, Optional, Tuple
 
 from docx import Document
+from docx.document import Document as DocumentObject
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Pt
 from docx.table import Table
@@ -65,10 +66,10 @@ def html_attrs_to_font_style(
 
 
 class HTML2Docx(HTMLParser):
-    def __init__(self, title: str):
+    def __init__(self, doc: DocumentObject):
         super().__init__()
-        self.doc = Document()
-        self.doc.core_properties.title = title
+        self.doc = doc
+        # self.doc.core_properties.title = title
         self.list_style: List[str] = []
         self.href = ""
         self._reset()
